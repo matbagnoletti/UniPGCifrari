@@ -16,7 +16,7 @@ bool troncato = false;
 // matrice di cifratura di Playfair
 const char mPlayfair[5][5] = { "esemp", "olayf", "rbcdg", "hknqt", "uvwxz" };
 
-// pulisce il buffer di input dopo aver letto un valore in input con fgets(). Crediti a https://stackoverflow.com/a/7898485
+// pulisce il buffer di input dopo aver letto un valore in input con fgets() (credits: https://stackoverflow.com/questions/7898215/how-can-i-clear-an-input-buffer-in-c)
 void pulisciBufferInput() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
@@ -86,42 +86,42 @@ void stampaEsito(const char *plaintext, const char *cyphertext) {
 
 /* 
     cifra un testo opportunamente formattato secondo il cifrario di Vigenere 
-    (fonte: https://it.wikipedia.org/wiki/Cifrario_di_Vigen%C3%A8re)
+    (credits: https://it.wikipedia.org/wiki/Cifrario_di_Vigen%C3%A8re)
  */
 void cifrarioVigenere(const char *plaintext, char *cyphertext) {
     // chiave di cifratura
-	char k[9] = "";
-        
-	printf("-- Inserisci la chiave di cifratura (8 caratteri): ");
-	fgets(k, sizeof(k), stdin);
-    // rimuove il carattere di newline (link: https://www.ibm.com/docs/it/i/7.5?topic=functions-strcspn-find-offset-first-character-match)
+    char k[9] = "";
+
+    printf("-- Inserisci la chiave di cifratura (8 caratteri): ");
+    fgets(k, sizeof(k), stdin);
+    // rimuove il carattere di newline (credits: https://www.ibm.com/docs/it/i/7.5?topic=functions-strcspn-find-offset-first-character-match)
     k[strcspn(k, "\n")] = '\0';
     ripulisciEFormatta(k, true);
-    
-	ushort j = 0;
-    
-	for (int i = 0; i < (int) strlen(plaintext); i++) {
+
+    ushort j = 0;
+
+    for (int i = 0; i < (int) strlen(plaintext); i++) {
         /* 
-  		   CALCOLO MATEMATICO (non implementato):
-  
-  		   plaintext[i] - 'a' individua la posizione numerica del carattere rispetto a 0 (il carattere ASCII 'a')
+           CALCOLO MATEMATICO (non implementato):
+
+           plaintext[i] - 'a' individua la posizione numerica del carattere rispetto a 0 (il carattere ASCII 'a')
            k[j] - 'a' individua la posizione numerica del carattere della chiave rispetto a 0 (il carattere ASCII 'a')
            sommando i due valori e facendo il modulo 26 si ottiene la posizione del carattere cifrato, cui viene riposizionato rispetto all'alfabeto ASCII
-  
+
          */
-	    cyphertext[i] = (char) ((plaintext[i] - 'a' + k[j] - 'a') % 26 + 'a');
-	    j = (ushort) ((j + 1) %  strlen(k));
-	}
+        cyphertext[i] = (char) ((plaintext[i] - 'a' + k[j] - 'a') % 26 + 'a');
+        j = (ushort) ((j + 1) %  strlen(k));
+    }
         
     cyphertext[strlen(plaintext)] = '\0';
 }
 
 /* 
     cifra un testo opportunamente formattato secondo il cifrario di Playfair 
-    (fonte: https://it.wikipedia.org/wiki/Cifrario_Playfair)
+    (credits: https://it.wikipedia.org/wiki/Cifrario_Playfair)
  */
 void cifrarioPlayfair(char *plaintext, char *cyphertext) {
-	// viene utilizzata come matrice la variabile mPlayfair
+    // viene utilizzata come matrice la variabile mPlayfair
     ushort colonna1 = 0, riga1 = 0, colonna2 = 0, riga2 = 0;
     
     formattaPlayFair(plaintext);
@@ -171,7 +171,7 @@ int main() {
     // modalità di cifratura scelta dall'utente
     int scelta = 0;
     
-	printf("UniPG: esercizio cifrari. Made by https://www.github.com/matbagnoletti\n");
+    printf("UniPG: esercizio cifrari. Made by https://www.github.com/matbagnoletti\n");
         
     while (!termina) {
         printf("\n**********************************************************************\n\n");
@@ -187,17 +187,17 @@ int main() {
             case PLAYFAIR:
                 printf("\n-- Inserisci il testo da cifrare (plaintext): ");
                 if (fgets(plaintext, sizeof(plaintext), stdin)) {
-                    if (strchr(plaintext, '\n') == NULL) { // controlla se il testo è stato troncato (link: https://www.ibm.com/docs/it/i/7.5?topic=functions-strchr-search-character)
+                    if (strchr(plaintext, '\n') == NULL) { // controlla se il testo è stato troncato (credits: https://www.ibm.com/docs/it/i/7.5?topic=functions-strchr-search-character)
                         troncato = true;
                         pulisciBufferInput();
                     }
-                    plaintext[strcspn(plaintext, "\n")] = '\0'; // rimuove il carattere di newline (link: https://www.ibm.com/docs/it/i/7.5?topic=functions-strcspn-find-offset-first-character-match)
+                    plaintext[strcspn(plaintext, "\n")] = '\0'; // rimuove il carattere di newline (credits: https://www.ibm.com/docs/it/i/7.5?topic=functions-strcspn-find-offset-first-character-match)
                 } else {
                     printf("-- Errore durante la lettura del testo. Riprova.\n");
                     continue;
                 }
       
-                plaintext[strcspn(plaintext, "\n")] = '\0'; // rimuove il carattere di newline (link: https://www.ibm.com/docs/it/i/7.5?topic=functions-strcspn-find-offset-first-character-match)
+                plaintext[strcspn(plaintext, "\n")] = '\0'; // rimuove il carattere di newline (credits: https://www.ibm.com/docs/it/i/7.5?topic=functions-strcspn-find-offset-first-character-match)
                 ripulisciEFormatta(plaintext, false);
           
                 if (scelta == VIGENERE) {
