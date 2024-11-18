@@ -21,7 +21,7 @@ gcc -v
 
 ## Richiesta dell'esercizio
 Realizzare un programma in C che permetta all'utente di cifrare un messaggio utilizzando, a scelta, o il [cifrario di Vigenère](https://it.wikipedia.org/wiki/Cifrario_di_Vigen%C3%A8re) o il [cifrario di Playfair](https://it.wikipedia.org/wiki/Cifrario_Playfair).
-_Per una visione più approfondita del testo e delle richieste del progetto, consultare il file PDF disponibile al seguente_ [link](https://francescosantini.sites.dmi.unipg.it/exercises/progI/esercizio2425.pdf).
+Per una visione più approfondita del testo e delle richieste del progetto, **consultare il file PDF disponibile al seguente [link](https://francescosantini.sites.dmi.unipg.it/exercises/progI/esercizio2425.pdf)**.
 
 ## Soluzione proposta
 Il programma permette all'utente di cifrare un messaggio utilizzando il cifrario di Vigenère o il cifrario di Playfair.
