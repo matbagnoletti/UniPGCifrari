@@ -102,12 +102,13 @@ void cifrarioVigenere(const char *plaintext, char *cyphertext) {
 
     for (int i = 0; i < (int) strlen(plaintext); i++) {
         /* 
-           CALCOLO MATEMATICO (non implementato):
+            CALCOLO MATEMATICO:
 
-           plaintext[i] - 'a' individua la posizione numerica del carattere rispetto a 0 (il carattere ASCII 'a')
-           k[j] - 'a' individua la posizione numerica del carattere della chiave rispetto a 0 (il carattere ASCII 'a')
-           sommando i due valori e facendo il modulo 26 si ottiene la posizione del carattere cifrato, cui viene riposizionato rispetto all'alfabeto ASCII
+            plaintext[i] - 'a' individua la posizione numerica di ciascun carattere del plaintext tra 0 e 25 (dove il carattere ASCII 'a' corrisponderà a 0 invece che 97 e 'z' a 25 invece che 122)
+            k[j] - 'a' individua la posizione numerica di ciascun carattere della chiave tra 0 e 25 (come sopra)
+            sommando i due valori e facendo il modulo 26 si ottiene la posizione del carattere cifrato, cui viene riposizionato rispetto all'alfabeto ASCII (+ 'a')
 
+            MECCANISMO con MATRICE: non implementato.
          */
         cyphertext[i] = (char) ((plaintext[i] - 'a' + k[j] - 'a') % 26 + 'a');
         j = (ushort) ((j + 1) %  strlen(k));
